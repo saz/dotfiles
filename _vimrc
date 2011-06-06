@@ -50,6 +50,18 @@ map <leader>r :RopeRename<CR>
 " Load plugins managed by Pathogen
 " ================================
 filetype off
+
+" To disable a plugin, add it's bundle name to the following list
+let g:pathogen_disabled = []
+
+if v:version < '702' || !has('python')
+    call add(g:pathogen_disabled, 'pyflakes'
+endif
+
+if v:version < '702'
+    call add(g:pathogen_disabled, 'acp')
+endif
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
