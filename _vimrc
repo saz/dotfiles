@@ -60,6 +60,7 @@ endif
 
 if v:version < '702'
     call add(g:pathogen_disabled, 'acp')
+    call add(g:pathogen_disabled, 'minibufexpl')
 endif
 
 call pathogen#runtime_append_all_bundles()
