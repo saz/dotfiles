@@ -55,7 +55,7 @@ filetype off
 let g:pathogen_disabled = []
 
 if v:version < '702' || !has('python')
-    call add(g:pathogen_disabled, 'pyflakes'
+    call add(g:pathogen_disabled, 'pyflakes')
 endif
 
 if v:version < '702'
