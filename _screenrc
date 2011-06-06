@@ -1,39 +1,18 @@
-# Created by John Anderson < sontek@gmail.com >
-##    Explanation of hardstatus line    ##
+vbell on
 
-# Note the embeded space after the colon, I feel
-#  it just looks nicer with a blank between the
-#  text and console edge:
-#   '%{=b}%{G} Screens: '
+# Automatically detach on hangup
+autodetach on
 
-# This prints the window listing in blue:
-#   '%{b}%w'
-
-# This right-aligns what follows:
-#   '%='
-
-# This displays the time (hours and minutes) in 12hr format
-# and adds an AM/PM flag, in bold green:
-#   '%{G}%C%A'
-
-# This displays the day of the week:
-#   '%D'
-
-#This displays the date in Mon/day/year format:
-# and again I embeded a space to give me one space
-# between the text and console edge:
-#  '%M/%d/%Y '
-
-# The resultsing command give you a status line that
-#  looks like this:
-#   | Screens: 0* bash  <blanks zapped>         5:30PM  Fri, Jun/25/2004 |
-#  (The pipes indicate the edges of the xterm/console).
-
-# Green text, time, and date; windows in blue:
-hardstatus alwayslastline "%{=b}%{G} Screen(s): %{b}%w %=%{kG}%C%A  %D, %M/%d/%Y "
-
-# Turn off start message:
+# Don't display copyright page
 startup_message off
 
-# Set messages timeout to one second:
-msgwait 1
+# Default scrollback value
+defscrollback 5000
+
+
+# Set 256 color xterm inside screen
+#term xterm-256color
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W}%c %{g}]'
+

@@ -49,3 +49,24 @@
 [submodule "_vim/bundle/acp"]
 	path = _vim/bundle/acp
 	url = https://github.com/vim-scripts/AutoComplPop.git
+[submodule "_vim/bundle/colorscheme-vividchalk"]
+	path = _vim/bundle/colorscheme-vividchalk
+	url = https://github.com/tpope/vim-vividchalk.git
+[submodule "_vim/bundle/django-syntax"]
+	path = _vim/bundle/django-syntax
+	url = https://github.com/vim-scripts/django.vim.git
+[submodule "_vim/bundle/javascript"]
+	path = _vim/bundle/javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "_vim/bundle/puppet"]
+	path = _vim/bundle/puppet
+	url = https://github.com/ajf/puppet-vim.git
+[submodule "_vim/bundle/python-syntax"]
+	path = _vim/bundle/python-syntax
+	url = https://github.com/me-vlad/python-syntax.vim.git
+[submodule "_vim/bundle/sudo"]
+	path = _vim/bundle/sudo
+	url = https://github.com/vim-scripts/sudo.vim.git
+[submodule "_vim/bundle/vim-php"]
+	path = _vim/bundle/vim-php
+	url = https://github.com/madflow/vim-php.git
