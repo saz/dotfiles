@@ -27,6 +27,9 @@ It's as simple as running:
 
     ./install.sh
 
+From this top-level directory.
+
+
 I've extended the install.sh script to handle .config directory, too.
 Just create a directory named '_config' and add files or directories in this directory.
 Everything inside _config will be symlinked to .config.
@@ -38,8 +41,6 @@ For example:
 becomes
 
     ${HOME}/.config/awesome/rc.lua
-
-From this top-level directory.
 
 ## Requirements
 * bash
