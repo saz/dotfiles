@@ -94,3 +94,6 @@
 	path = _vim/bundle/vim-php
 	url = https://github.com/madflow/vim-php.git
     ignore = dirty
+[submodule "_vim/bundle/vim-markdown"]
+	path = _vim/bundle/vim-markdown
+	url = git://github.com/plasticboy/vim-markdown.git
