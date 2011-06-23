@@ -68,6 +68,9 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
+-- Create a systray
+mysystray = widget({ type = "systray" })
+
 -- {{{ Wibox
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -138,6 +141,7 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
+        s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
