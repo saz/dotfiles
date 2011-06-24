@@ -97,7 +97,6 @@ filetype plugin indent on	" enable loading indent file for filetype
 set title			" show title in console title bar
 set number			" display line numbers
 set numberwidth=1		" use only one column when possible
-set background=dark		" dark background in use
 set incsearch			" do incremental search
 set hlsearch			" highlight search value
 set ignorecase			" case-insensitive search
@@ -145,6 +144,7 @@ set novisualbell t_vb=
 set nobackup			" Turn backups off, since most stuff is in $VCS
 set nowritebackup		" No backup before overwriting a file
 colorscheme inkpot		" use colorscheme
+set background=dark		" dark background in use
 
 " Jump to the last position when reopening a file
 if has("autocmd")

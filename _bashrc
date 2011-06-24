@@ -66,10 +66,6 @@ else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$(parse_git_branch)$ '
 fi
 
-if [ -n "$PSAPPEND" ]; then
-    PS1="${PS1}${PSAPPEND}"
-fi
-
 unset color_prompt force_color_prompt
 
 # Alias definitions.
@@ -133,7 +129,7 @@ cd
 #	sleep 1
 #	screen -D -r
 #else
-if [ "$SHLVL" -ge 4 ]; then
+if [ "$SHLVL" -gt 4 ]; then
 	function ssh() {
 		hname=${1##*@}
 		echo -n -e "\033k$hname\033\\"
