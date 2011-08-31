@@ -139,7 +139,7 @@ cd
 #	sleep 1
 #	screen -D -r
 #else
-if [ "$SHLVL" -gt 4 ]; then
+if [ "$SHLVL" -gt 5 ]; then
 	function ssh() {
 		hname=${1##*@}
 		echo -n -e "\033k$hname\033\\"
