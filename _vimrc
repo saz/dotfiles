@@ -91,11 +91,11 @@ endif
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 
-syntax on			" enable syntax highlighting
-filetype on			" try to detect filetypes
+syntax on			    " enable syntax highlighting
+filetype on			    " try to detect filetypes
 filetype plugin indent on	" enable loading indent file for filetype
-set title			" show title in console title bar
-set number			" display line numbers
+set title			    " show title in console title bar
+set number			    " display line numbers
 set numberwidth=1		" use only one column when possible
 set incsearch			" do incremental search
 set hlsearch			" highlight search value
@@ -105,7 +105,7 @@ set wrapscan			" wrap around to the beginning of file on search if end is reache
 set showmatch			" show matching brackets
 set wildmenu			" menu completion on <TAB> in command mode
 set wildmode=full		" cycle between all matches
-set ruler			" display cursor position
+set ruler			    " display cursor position
 set autoindent			" always enable autoindenting
 set smartindent			" use smart indent if there is no indent file
 set tabstop=4			" <TAB> inserts four spaces
@@ -115,28 +115,27 @@ set expandtab			" use spaces for autoindent/tab
 set noautowrite			" write only on request
 set noautowriteall		" write in all cases on request only
 set noautoread			" don't re-read changed files automatically
-set nowrap			" don't wrap text
+set nowrap			    " don't wrap text
 set modeline			" allow vim options to be embedded in files
 set modelines=5			" they must be within the first or last 5 lines
-set ffs=unix,dos,mac		" try recognizing unix, dos and mac line endings
+set ffs=unix,dos,mac	" try recognizing unix, dos and mac line endings
 set laststatus=2		" always show statusline
 "set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 set statusline=[%l,%v\ %p%%]\ %F%m%r%h%w\ %=%03.b,0x%B\ %{fugitive#statusline()}\ [%{&ff}]\ %y\ [len:%L]
-set showmatch			" briefly jump to the matching brace
 set cursorline			" highlight the line containing the cursor
-set showcmd			" show incomplete commands
+set showcmd			    " show incomplete commands
 set nostartofline		" try to preserve column where cursor is positioned
 set shiftround			" indent/outdent to nearest tabstops
 set backspace=2			" Allow backspacing over autoindent, EOL, and BOL
 set scrolloff=3			" Keep 3 context lines above and below the cursor
-set virtualedit=block		" Let cursor move past the last char in <C-v> mode
+set virtualedit=block	" Let cursor move past the last char in <C-v> mode
 set linebreak			" don't wrap text in the middle of a word
-set matchpairs=<:>		" comma-separated list of characters that form pairs
-set confirm			" raise a dialog because of unsaved changes
+set matchpairs=<:>,":"		" comma-separated list of characters that form pairs
+set confirm			    " raise a dialog because of unsaved changes
 set report=0			" always display changed line count
 set smarttab			" Handle tabs more intelligently
 set shortmess+=a		" Use [+]/[RO]/[w] for modified/readonly/written.
-set foldmethod=indent		" Lines with equal indent form a fold.
+set foldmethod=indent	" Lines with equal indent form a fold.
 set foldlevel=99		" don't fold by default
 "set foldcolumn=1		" show the fold column
 set noerrorbells		" don't bell
