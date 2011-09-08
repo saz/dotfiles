@@ -6,10 +6,14 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
+-- Widgets
+require("obvious.clock")
+require("obvious.battery")
+require("obvious.volume_alsa")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init(awful.util.getdir("config") .. "/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -17,10 +21,6 @@ editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -60,7 +60,11 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+                                    { "open terminal", terminal },
+                                    { "Suspend", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Suspend"); end },
+                                    { "Hibernate", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Hibernate"); end },
+                                    { "Reboot", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart"); awesome.restart() end },
+                                    { "Shutdown", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop"); awesome.quit() end }
                                   }
                         })
 
@@ -68,10 +72,26 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
+-- {{{ Widgets
 -- Create a systray
-mysystray = widget({ type = "systray" })
+mysystray = widget({ type = "systray", align = "right" })
+
+-- Obvious clock settings
+obvious.clock.set_editor(editor_cmd)
+obvious.clock.set_shortformat("%a, %d. %b %Y %H:%M:%S")
+obvious.clock.set_longformat("%a, %d. %b %Y %H:%M:%S")
+obvious.clock.set_shorttimer(1)
+
+-- }}}
 
 -- {{{ Wibox
+-- separator/spacer icons
+separator = widget({ type = "textbox", align = "left" })
+separator.text = " || "
+
+space = widget({ type = "textbox" })
+space.text = "  "
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -131,7 +151,7 @@ for s = 1, screen.count() do
                                           end, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "bottom", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
@@ -140,10 +160,13 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        mylayoutbox[s],
+        mylayoutbox[s], space,
+        obvious.clock(), separator,
+        obvious.battery(), separator,
+        obvious.volume_alsa().widget, separator,
         s == 1 and mysystray or nil,
         mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
+        layout = awful.widget.layout.horizontal.rightleft,
     }
 end
 -- }}}
@@ -213,7 +236,12 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+
+    -- Volume Control
+    awful.key({ }, "XF86AudioRaiseVolume", function () obvious.volume_alsa.raise(0, "Master") end),
+    awful.key({ }, "XF86AudioLowerVolume", function () obvious.volume_alsa.lower(0, "Master") end),
+    awful.key({ }, "XF86AudioMute", function () obvious.volume_alsa.mute(0, "Master") end)
 )
 
 clientkeys = awful.util.table.join(
@@ -331,3 +359,7 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- {{{ Autostart
+awful.util.spawn("nm-applet")
+awful.util.spawn("gnome-power-manager")

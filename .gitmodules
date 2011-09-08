@@ -100,3 +100,9 @@
 [submodule "_vim/bundle/matchit"]
 	path = _vim/bundle/matchit
 	url = git://github.com/vim-scripts/matchit.zip.git
+[submodule "_config/awesome/obvious"]
+	path = _config/awesome/obvious
+	url = git://git.mercenariesguild.net/obvious.git
+[submodule "_config/awesome/themes"]
+	path = _config/awesome/themes
+	url = git://github.com/mikar/awesome-themes.git
