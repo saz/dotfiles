@@ -22,6 +22,10 @@ terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
+-- Some other variables
+home = os.getenv("HOME")
+filemanager_gui = "nautilus"
+
 -- Default modkey.
 modkey = "Mod4"
 
@@ -61,8 +65,26 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
+myinternet = {
+    { "Chromium", "chromium" },
+    { "Firefox", "firefox" },
+    { "XChat", "xchat" },
+    { "IPMIView", function () awful.util.spawn_with_shell("wmname LG3D; java -jar /opt/IPMIView/IPMIView20.jar") end }
+}
+
+myplaces = {
+    { "Home", filemanager_gui .. " " .. home },
+    { "Documents", filemanager_gui .. " " .. home .. "/Documents" },
+    { "Downloads", filemanager_gui .. " " .. home .. "/Downloads" },
+    { "Music", filemanager_gui .. " " .. home .. "/Music" },
+    { "Pictures", filemanager_gui .. " " .. home .. "/Pictures" },
+    { "Videos", filemanager_gui .. " " .. home .. "/Videos" }
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
+                                    { "Internet", myinternet },
+                                    { "Places", myplaces },
                                     { "Terminal", terminal },
                                     { "Suspend", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Suspend"); end },
                                     { "Hibernate", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Hibernate"); end },
@@ -373,3 +395,4 @@ awful.util.spawn("nm-applet")
 awful.util.spawn("gnome-power-manager")
 awful.util.spawn("gnome-screensaver")
 awful.util.spawn("gnome-do")
+awful.util.spawn("gnome-volume-control-applet")
