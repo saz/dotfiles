@@ -1,15 +1,27 @@
-#!/bin/bash
+#!/bin/bash -x
 
 function linkFile {
-    source="${PWD}/$1"
+    sleep 1
+    src="${PWD}/$1"
     target="${HOME}/${1/_/.}"
+    backup="${target}.bak"
+    echo $src $target
+
+    # Remove any previous backup.
+    if [ -e "${backup}" ]; then
+        if [ -f "${backup}" ] || [ -h "${backup}" ]; then
+            rm "${backup}"
+        elif [ -d "${backup}"]; then
+            rm -r "${backup}"
+        fi
+    fi
 
     # Only create backup if target is a file or directory
     if [ -f "${target}" ] || [ -d "${target}" ]; then
         mv "$target" "$target.bak"
     fi
 
-    ln -sf "${source}" "${target}"
+    ln -sf "${src}" "${target}"
 }
 
 for i in _*
@@ -17,7 +29,7 @@ do
     if [ "$i" == "_config" ]; then
         for j in $i/*
         do
-            linkFile "$j" "$j"
+            linkFile "$j"
         done
     else
         linkFile "$i"
