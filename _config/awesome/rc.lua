@@ -10,6 +10,8 @@ require("naughty")
 require("obvious.clock")
 require("obvious.battery")
 require("obvious.volume_alsa")
+-- Load Debian menu entries
+require("debian.menu")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -60,7 +62,8 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal },
+                                    { "Debian", debian.menu.Debian_menu.Debian },
+                                    { "Terminal", terminal },
                                     { "Suspend", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Suspend"); end },
                                     { "Hibernate", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Hibernate"); end },
                                     { "Reboot", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart"); awesome.restart() end },
@@ -226,9 +229,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-    -- Prompt
-    -- I'm using gnome-do. Configuration is done inside.
-    -- awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    -- gnome-do
+    awful.key({ modkey },            "r",     function () awful.util.spawn("gnome-do") end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -241,7 +243,13 @@ globalkeys = awful.util.table.join(
     -- Volume Control
     awful.key({ }, "XF86AudioRaiseVolume", function () obvious.volume_alsa.raise(0, "Master") end),
     awful.key({ }, "XF86AudioLowerVolume", function () obvious.volume_alsa.lower(0, "Master") end),
-    awful.key({ }, "XF86AudioMute", function () obvious.volume_alsa.mute(0, "Master") end)
+    awful.key({ }, "XF86AudioMute", function () obvious.volume_alsa.mute(0, "Master") end),
+
+    -- Lock Screen
+    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("gnome-screensaver-command -l") end),
+
+    -- Eject
+    awful.key({ }, "XF86Eject", function () awful.util.spawn("eject") end)
 )
 
 clientkeys = awful.util.table.join(
@@ -363,3 +371,5 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- {{{ Autostart
 awful.util.spawn("nm-applet")
 awful.util.spawn("gnome-power-manager")
+awful.util.spawn("gnome-screensaver")
+awful.util.spawn("gnome-do")
