@@ -66,7 +66,7 @@ myawesomemenu = {
 }
 
 myinternet = {
-    { "Chromium", "chromium" },
+    { "Chromium", "chromium-browser" },
     { "Firefox", "firefox" },
     { "XChat", "xchat" },
     { "IPMIView", function () awful.util.spawn_with_shell("wmname LG3D; java -jar /opt/IPMIView/IPMIView20.jar") end }
