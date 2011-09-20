@@ -1,11 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 
 function linkFile {
     sleep 1
     src="${PWD}/$1"
     target="${HOME}/${1/_/.}"
     backup="${target}.bak"
-    echo $src $target
 
     # Remove any previous backup.
     if [ -e "${backup}" ]; then
