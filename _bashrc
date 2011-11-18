@@ -134,6 +134,8 @@ export DEBEMAIL DEBFULLNAME
 # In case, we've changed the directory, switch back to home dir
 cd
 
+PATH="/var/lib/gems/1.8/bin:$PATH"
+
 #if [ "$SHLVL" -lt 2 ]; then
 #	echo "Hit Ctrl+C to not raise screen now!"
 #	sleep 1
