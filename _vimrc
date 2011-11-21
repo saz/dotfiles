@@ -142,8 +142,9 @@ set noerrorbells		" don't bell
 set novisualbell t_vb=
 set nobackup			" Turn backups off, since most stuff is in $VCS
 set nowritebackup		" No backup before overwriting a file
-colorscheme inkpot		" use colorscheme
+"colorscheme inkpot		" use colorscheme
 set background=dark		" dark background in use
+colorscheme solarized		" use colorscheme
 
 " Jump to the last position when reopening a file
 if has("autocmd")
@@ -157,7 +158,7 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 inoremap # #
 
 " Enable 256 colors
-set t_Co=256
+"set t_Co=256
 
 augroup gzip
   autocmd!
