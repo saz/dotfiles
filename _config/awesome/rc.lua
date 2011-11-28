@@ -15,10 +15,11 @@ require("debian.menu")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
+-- beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/matrix/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "xfce4-terminal"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -89,6 +90,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "Suspend", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Suspend"); end },
                                     { "Hibernate", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.UPower /org/freedesktop/UPower org.freedesktop.UPower.Hibernate"); end },
                                     { "Reboot", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart"); awesome.restart() end },
+                                    { "Logout", awesome.quit },
                                     { "Shutdown", function () awesome.spawn("dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop"); awesome.quit() end }
                                   }
                         })
@@ -268,7 +270,7 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86AudioMute", function () obvious.volume_alsa.mute(0, "Master") end),
 
     -- Lock Screen
-    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("gnome-screensaver-command -l") end),
+    awful.key({ modkey, "Control" }, "BackSpace", function () awful.util.spawn("xscreensaver-command -lock") end),
 
     -- Eject
     awful.key({ }, "XF86Eject", function () awful.util.spawn("eject") end)
@@ -391,8 +393,25 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 -- {{{ Autostart
-awful.util.spawn("nm-applet")
-awful.util.spawn("gnome-power-manager")
-awful.util.spawn("gnome-screensaver")
-awful.util.spawn("gnome-do")
-awful.util.spawn("gnome-volume-control-applet")
+function run_once(prg,arg_string,pname,screen)
+    if not prg then
+        do return nil end
+    end
+
+    if not pname then
+        pname = prg
+    end
+
+    if not arg_string then
+        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+    else
+        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. " " .. arg_string .. ")",screen)
+    end
+end
+
+run_once("nm-applet")
+run_once("xfce4-power-manager")
+run_once("xscreensaver","-no-splash")
+run_once("gnome-do")
+run_once("xfsettingsd")
+-- awful.util.spawn("gnome-volume-control-applet")
