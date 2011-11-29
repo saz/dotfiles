@@ -146,6 +146,8 @@ set t_Co=256            " Enable 256 colors
 set background=dark		" dark background in use
 let g:solarized_termcolors=256
 colorscheme solarized		" use colorscheme
+" Set background dark a second time to avoid light background in php files
+set background=dark		" dark background in use
 "colorscheme inkpot		" use colorscheme
 
 " Jump to the last position when reopening a file
