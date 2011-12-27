@@ -69,11 +69,6 @@ call pathogen#helptags()
 " ==============
 " Basic settings
 " ==============
-" Disable the colorcolumn when switching modes. Make sure this is the
-" first autocmd for the filetype here
-if exists("&colorcolumn")
-	autocmd FileType * setlocal colorcolumn=0
-endif
 
 """ Insert completion
 " don't select first item, follow typing in autocomplete
@@ -91,20 +86,34 @@ endif
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 
+" Syntax and filetype settings
 syntax on			    " enable syntax highlighting
 filetype on			    " try to detect filetypes
 filetype plugin indent on	" enable loading indent file for filetype
-set title			    " show title in console title bar
+
+" Color settings
+set t_Co=256            " Enable 256 colors
+set background=dark		" dark background in use
+colorscheme solarized	" use colorscheme
+
+" Line numbers
 set number			    " display line numbers
 set numberwidth=1		" use only one column when possible
+
+" Search
 set incsearch			" do incremental search
 set hlsearch			" highlight search value
+set wrapscan			" wrap around to the beginning of file on search if end is reached
+
+
+" Misc
+set title			    " show title in console title bar
 set ignorecase			" case-insensitive search
 set smartcase			" if a pattern contains an uppercase letter, it is case sensitive
-set wrapscan			" wrap around to the beginning of file on search if end is reached
 set showmatch			" show matching brackets
+set matchpairs+=<:>,":"	" comma-separated list of characters that form pairs
 set wildmenu			" menu completion on <TAB> in command mode
-set wildmode=full		" cycle between all matches
+set wildmode=list:longest,full		" cycle between all matches
 set ruler			    " display cursor position
 set autoindent			" always enable autoindenting
 set smartindent			" use smart indent if there is no indent file
@@ -130,7 +139,6 @@ set backspace=2			" Allow backspacing over autoindent, EOL, and BOL
 set scrolloff=3			" Keep 3 context lines above and below the cursor
 set virtualedit=block	" Let cursor move past the last char in <C-v> mode
 set linebreak			" don't wrap text in the middle of a word
-set matchpairs=<:>,":"		" comma-separated list of characters that form pairs
 set confirm			    " raise a dialog because of unsaved changes
 set report=0			" always display changed line count
 set smarttab			" Handle tabs more intelligently
@@ -142,13 +150,6 @@ set noerrorbells		" don't bell
 set novisualbell t_vb=
 set nobackup			" Turn backups off, since most stuff is in $VCS
 set nowritebackup		" No backup before overwriting a file
-set t_Co=256            " Enable 256 colors
-set background=dark		" dark background in use
-let g:solarized_termcolors=256
-colorscheme solarized		" use colorscheme
-" Set background dark a second time to avoid light background in php files
-set background=dark		" dark background in use
-"colorscheme inkpot		" use colorscheme
 
 " Jump to the last position when reopening a file
 if has("autocmd")
@@ -160,6 +161,9 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
 " don't outdent hashes
 inoremap # #
+
+" Resize splits when window is resized
+au VimResized * exe "normal! \<c-w>="
 
 augroup gzip
   autocmd!
@@ -194,6 +198,10 @@ au BufRead /etc/network/interfaces :set syntax=interfaces
 "
 " taglist
 nnoremap <silent> <F8> :TlistToggle<CR>
+
+" F11 to toggle paste mode
+map <F11> :set invpaste<CR>
+set pastetoggle=<F11>
 
 
 """""""""""""""""""""""""""""""""

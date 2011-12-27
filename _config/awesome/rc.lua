@@ -16,10 +16,11 @@ require("debian.menu")
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
-beautiful.init(awful.util.getdir("config") .. "/themes/matrix/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/wombat/theme.lua")
+
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
+terminal = 'urxvtc'
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -413,5 +414,7 @@ run_once("nm-applet")
 run_once("xfce4-power-manager")
 run_once("xscreensaver","-no-splash")
 run_once("gnome-do")
+-- Is the next line still required?
 run_once("xfsettingsd")
+run_once("urxvtd","-q -f -o")
 -- awful.util.spawn("gnome-volume-control-applet")

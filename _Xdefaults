@@ -1,5 +1,59 @@
-Xft.dpi: 96.0
+Xft.dpi: 96
+Xft.antialias: false
+Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
-Xft.antialias: true
-Xft.rgba: none
+
+urxvt*termName: rxvt-unicode-256color
+urxvt*internalBorder: 3
+urxvt*externalBorder: 0
+urxvt*visualBell: false
+urxvt*saveLines: 10000
+urxvt*depth: 32
+urxvt*geometry: 90x30
+urxvt*loginShell: true
+
+! Font
+urxvt*font: xft:Terminus:pixelsize=14
+
+! Blank pointer
+urxvt*pointerBlank: true
+
+! Disable scrollbar
+urxvt*scrollBar: false
+
+! Perl extensions
+urxvt.perl-ext-common: default,matcher
+urxvt.matcher.button: 1
+urxvt.urlLauncher: chromium-browser
+
+! Cursor
+urxvt*cursorBlink: true
+urxvt*cursorUnderline: true
+urxvt*cursorColor: #93a1a1
+
+! Solarized Theme colors
+urxvt*foreground: #657b83
+urxvt*background: #002b36
+urxvt*fading: 40
+urxvt*fadeColor: #002b36
+urxvt*pointerColorBackground: #586e75
+urxvt*pointerColorForeground: #93a1a1
+urxvt*color0: #073642
+urxvt*color1: #dc322f
+urxvt*color2: #859900
+urxvt*color3: #b58900
+urxvt*color4: #268bd2
+urxvt*color5: #d33682
+urxvt*color6: #2aa198
+urxvt*color7: #eee8d5
+urxvt*color8: #002b36
+urxvt*color9: #cb4b16
+urxvt*color10: #586e75
+urxvt*color11: #657b83
+urxvt*color12: #839496
+urxvt*color13: #6c71c4
+urxvt*color14: #93a1a1
+urxvt*color15: #fdf6e3
+urxvt*transparent: true
+urxvt*shading: 30
