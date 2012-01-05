@@ -74,8 +74,7 @@ call pathogen#helptags()
 " don't select first item, follow typing in autocomplete
 set completeopt=menuone,longest,preview
 set pumheight=6			" Keep a small completion window
-" ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=*.o,*.obj,.git,*.pyc " ignore these files when completing
 set grepprg=ack-grep		" replace default grep program with ack
 
 " show a line at column 79
@@ -104,26 +103,30 @@ set numberwidth=1		" use only one column when possible
 set incsearch			" do incremental search
 set hlsearch			" highlight search value
 set wrapscan			" wrap around to the beginning of file on search if end is reached
+set ignorecase			" case-insensitive search
+set smartcase			" if a pattern contains an uppercase letter, it is case sensitive
 
+" Indentation
+set autoindent			" always enable autoindenting
+set smartindent			" use smart indent if there is no indent file
 
 " Misc
 set title			    " show title in console title bar
-set ignorecase			" case-insensitive search
-set smartcase			" if a pattern contains an uppercase letter, it is case sensitive
 set showmatch			" show matching brackets
 set matchpairs+=<:>,":"	" comma-separated list of characters that form pairs
 set wildmenu			" menu completion on <TAB> in command mode
 set wildmode=list:longest,full		" cycle between all matches
 set ruler			    " display cursor position
-set autoindent			" always enable autoindenting
-set smartindent			" use smart indent if there is no indent file
 set tabstop=4			" <TAB> inserts four spaces
 set shiftwidth=4		" indent level is 2 spaces wide TODO
 set softtabstop=4		" <BS> over an autoindent deletes both spaces
 set expandtab			" use spaces for autoindent/tab
+set smarttab			" Handle tabs more intelligently
 set noautowrite			" write only on request
 set noautowriteall		" write in all cases on request only
 set noautoread			" don't re-read changed files automatically
+set nobackup			" Turn backups off, since most stuff is in $VCS
+set nowritebackup		" No backup before overwriting a file
 set nowrap			    " don't wrap text
 set modeline			" allow vim options to be embedded in files
 set modelines=5			" they must be within the first or last 5 lines
@@ -141,15 +144,12 @@ set virtualedit=block	" Let cursor move past the last char in <C-v> mode
 set linebreak			" don't wrap text in the middle of a word
 set confirm			    " raise a dialog because of unsaved changes
 set report=0			" always display changed line count
-set smarttab			" Handle tabs more intelligently
 set shortmess+=a		" Use [+]/[RO]/[w] for modified/readonly/written.
 set foldmethod=indent	" Lines with equal indent form a fold.
 set foldlevel=99		" don't fold by default
 "set foldcolumn=1		" show the fold column
 set noerrorbells		" don't bell
 set novisualbell t_vb=
-set nobackup			" Turn backups off, since most stuff is in $VCS
-set nowritebackup		" No backup before overwriting a file
 
 " Jump to the last position when reopening a file
 if has("autocmd")
