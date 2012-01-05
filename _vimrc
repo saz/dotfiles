@@ -20,10 +20,6 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 " Open NERDTree
 map <leader>n :NERDTreeToggle<CR>
 
-" Ack searching
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-nmap <leader>a <Esc>:Ack!
-
 " Open Gundo window
 map <leader>g :GundoToggle<CR>
 
@@ -75,7 +71,6 @@ call pathogen#helptags()
 set completeopt=menuone,longest,preview
 set pumheight=6			" Keep a small completion window
 set wildignore+=*.o,*.obj,.git,*.pyc " ignore these files when completing
-set grepprg=ack-grep		" replace default grep program with ack
 
 " show a line at column 79
 if exists("&colorcolumn")
