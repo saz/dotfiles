@@ -1,3 +1,6 @@
+" Load pathogen from bundle directory
+runtime bundle/pathogen/autoload/pathogen.vim
+
 "  =========
 "  Shortcuts
 "  =========
@@ -8,31 +11,6 @@ let g:pep8_map='<leader>8'	" run pep8
 command! W :w
 " Write file with sudo
 cmap W! w !sudo tee % >/dev/null
-
-" toggle tasklist
-map <leader>td <Plug>TaskList
-
-" <leader>v opens .vimrc
-" <leader>V reloads it (remember to save file first)
-map <leader>v :sp ~/.vimrc<CR><C-W>_
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
-" Open NERDTree
-map <leader>n :NERDTreeToggle<CR>
-
-" Open Gundo window
-map <leader>g :GundoToggle<CR>
-
-" Run django tests
-map <leader>dt :set makeprg=python\ manage.py\ test\|:call MakeGreen()<CR>
-
-" run py.test's
-nmap <silent><Leader>tf <Esc>:Pytest file<CR>
-nmap <silent><Leader>tc <Esc>:Pytest class<CR>
-nmap <silent><Leader>tm <Esc>:Pytest method<CR>
-nmap <silent><Leader>tn <Esc>:Pytest next<CR>
-nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
-nmap <silent><Leader>te <Esc>:Pytest error<CR>
 
 " Jump to the definition of whatever the cursor is on
 map <leader>j :RopeGotoDefinition<CR>
@@ -56,11 +34,13 @@ endif
 
 if v:version < '702'
     call add(g:pathogen_disabled, 'acp')
-    call add(g:pathogen_disabled, 'minibufexpl')
 endif
 
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
+
+filetype plugin indent on	" enable loading indent and plugin file for filetype
+syntax on			        " enable syntax highlighting
 
 " ==============
 " Basic settings
@@ -79,11 +59,6 @@ endif
 
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
-
-" Syntax and filetype settings
-syntax on			    " enable syntax highlighting
-filetype on			    " try to detect filetypes
-filetype plugin indent on	" enable loading indent file for filetype
 
 " Color settings
 set t_Co=256            " Enable 256 colors
@@ -113,7 +88,7 @@ set wildmenu			" menu completion on <TAB> in command mode
 set wildmode=list:longest,full		" cycle between all matches
 set ruler			    " display cursor position
 set tabstop=4			" <TAB> inserts four spaces
-set shiftwidth=4		" indent level is 2 spaces wide TODO
+set shiftwidth=4		" indent level is 4 spaces wide
 set softtabstop=4		" <BS> over an autoindent deletes both spaces
 set expandtab			" use spaces for autoindent/tab
 set smarttab			" Handle tabs more intelligently
@@ -194,10 +169,29 @@ au BufRead /etc/network/interfaces :set syntax=interfaces
 " taglist
 nnoremap <silent> <F8> :TlistToggle<CR>
 
+" <leader>V reloads it (remember to save file first)
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+
+" Run django tests
+map <leader>dt :set makeprg=python\ manage.py\ test\|:call MakeGreen()<CR>
+
+" run py.test's
+nmap <silent><Leader>tf <Esc>:Pytest file<CR>
+nmap <silent><Leader>tc <Esc>:Pytest class<CR>
+nmap <silent><Leader>tm <Esc>:Pytest method<CR>
+nmap <silent><Leader>tn <Esc>:Pytest next<CR>
+nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
+nmap <silent><Leader>te <Esc>:Pytest error<CR>
+
 " F11 to toggle paste mode
 map <F11> :set invpaste<CR>
 set pastetoggle=<F11>
 
+map <leader>n :NERDTreeToggle<CR>   " Open NERDTree
+map <leader>g :GundoToggle<CR>  " Open Gundo window
+map <leader>t <Plug>TaskList    " toggle tasklist
+map <leader>v :sp ~/.vimrc<CR><C-W> " open .vimrc
 
 """""""""""""""""""""""""""""""""
 " PLUGIN CONFIGURATION "
