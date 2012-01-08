@@ -112,3 +112,15 @@
 [submodule "_vim/bundle/vim-colors-solarized"]
 	path = _vim/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "_vim/bundle/taglist"]
+	path = _vim/bundle/taglist
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "_vim/bundle/rope-vim"]
+	path = _vim/bundle/rope-vim
+	url = https://github.com/sontek/rope-vim.git
+[submodule "_vim/bundle/python-mode"]
+	path = _vim/bundle/python-mode
+	url = git://github.com/klen/python-mode.git
+[submodule "_vim/bundle/pathogen"]
+	path = _vim/bundle/pathogen
+	url = https://github.com/tpope/vim-pathogen.git
