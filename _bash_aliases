@@ -17,3 +17,6 @@ alias l='ls -CF'
 
 alias df='df -h'
 alias ..='cd ..'
+
+alias dual='disper -d auto -t left -e'
+alias single='disper -d auto -s'
