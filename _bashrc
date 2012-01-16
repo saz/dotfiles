@@ -93,6 +93,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# virtualenvwrapper configuration if available
+if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
+
 # Set 'vim' as default editor if it can be found, else use 'vi'
 seteditor() {
 	if [ -x "`which vim`" ]; then
@@ -134,7 +140,11 @@ export DEBEMAIL DEBFULLNAME
 # In case, we've changed the directory, switch back to home dir
 cd
 
+# Add rubygems to path
 PATH="/var/lib/gems/1.8/bin:$PATH"
+
+# Add git-hooks to path
+PATH="$PATH:~/opt/git-hooks"
 
 #if [ "$SHLVL" -lt 2 ]; then
 #	echo "Hit Ctrl+C to not raise screen now!"
