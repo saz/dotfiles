@@ -1,2 +1,7 @@
+# Switch from Emacs to Vi readline editing mode
+# set editing-mode vi
+
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
+
+set show-all-if-ambiguous on
