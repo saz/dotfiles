@@ -14,21 +14,9 @@
 	path = _vim/bundle/git
 	url = https://github.com/tpope/vim-git.git
     ignore = dirty
-[submodule "_vim/bundle/minibufexpl"]
-	path = _vim/bundle/minibufexpl
-	url = https://github.com/sontek/minibufexpl.vim.git
-    ignore = dirty
-[submodule "_vim/bundle/command-t"]
-	path = _vim/bundle/command-t
-	url = https://github.com/wincent/Command-T.git
-    ignore = dirty
 [submodule "_vim/bundle/pyflakes"]
 	path = _vim/bundle/pyflakes
 	url = https://github.com/mitechie/pyflakes-pathogen.git
-    ignore = dirty
-[submodule "_vim/bundle/ack"]
-	path = _vim/bundle/ack
-	url = https://github.com/mileszs/ack.vim.git
     ignore = dirty
 [submodule "_vim/bundle/gundo"]
 	path = _vim/bundle/gundo
@@ -46,10 +34,6 @@
 	path = _vim/bundle/pytest
 	url = https://github.com/alfredodeza/pytest.vim.git
     ignore = dirty
-[submodule "_vim/bundle/makegreen"]
-	path = _vim/bundle/makegreen
-	url = https://github.com/reinh/vim-makegreen
-    ignore = dirty
 [submodule "_vim/bundle/tasklist"]
 	path = _vim/bundle/tasklist
 	url = https://github.com/vim-scripts/TaskList.vim.git
@@ -58,17 +42,9 @@
 	path = _vim/bundle/nerdtree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
     ignore = dirty
-[submodule "_vim/bundle/ropevim"]
-	path = _vim/bundle/ropevim
-	url = https://github.com/sontek/rope-vim.git
-    ignore = dirty
 [submodule "_vim/bundle/acp"]
 	path = _vim/bundle/acp
 	url = https://github.com/vim-scripts/AutoComplPop.git
-    ignore = dirty
-[submodule "_vim/bundle/colorscheme-vividchalk"]
-	path = _vim/bundle/colorscheme-vividchalk
-	url = https://github.com/tpope/vim-vividchalk.git
     ignore = dirty
 [submodule "_vim/bundle/django-syntax"]
 	path = _vim/bundle/django-syntax
@@ -77,10 +53,6 @@
 [submodule "_vim/bundle/javascript"]
 	path = _vim/bundle/javascript
 	url = https://github.com/pangloss/vim-javascript.git
-    ignore = dirty
-[submodule "_vim/bundle/puppet"]
-	path = _vim/bundle/puppet
-	url = https://github.com/ajf/puppet-vim.git
     ignore = dirty
 [submodule "_vim/bundle/python-syntax"]
 	path = _vim/bundle/python-syntax
@@ -115,9 +87,6 @@
 [submodule "_vim/bundle/taglist"]
 	path = _vim/bundle/taglist
 	url = https://github.com/vim-scripts/taglist.vim.git
-[submodule "_vim/bundle/rope-vim"]
-	path = _vim/bundle/rope-vim
-	url = https://github.com/sontek/rope-vim.git
 [submodule "_vim/bundle/python-mode"]
 	path = _vim/bundle/python-mode
 	url = git://github.com/klen/python-mode.git
