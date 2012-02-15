@@ -124,3 +124,6 @@
 [submodule "_vim/bundle/pathogen"]
 	path = _vim/bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "_vim/bundle/syntastic"]
+	path = _vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
