@@ -99,3 +99,6 @@
 [submodule "_vim/bundle/tabular"]
 	path = _vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
+[submodule "_vim/bundle/vim-puppet"]
+	path = _vim/bundle/vim-puppet
+	url = git://github.com/rodjek/vim-puppet.git
