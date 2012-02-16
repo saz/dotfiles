@@ -8,10 +8,13 @@ urxvt*termName: rxvt-unicode-256color
 urxvt*internalBorder: 3
 urxvt*externalBorder: 0
 urxvt*visualBell: false
-urxvt*saveLines: 10000
+urxvt*saveLines: 100000
 urxvt*depth: 32
 urxvt*geometry: 90x30
 urxvt*loginShell: true
+urxvt*scrollTtyOutput: false
+urxvt*scrollWithBuffer: true
+urxvt*scrollTtyKeypress: true
 
 ! Font
 urxvt*font: xft:Terminus:pixelsize=14
