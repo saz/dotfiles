@@ -11,3 +11,15 @@
     default = matching
 [core]
     editor = vim
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+[url "git@git.kwick.de:"]
+    insteadOf = k:
+[url "git@github.com:saz/"]
+    insteadOf = gh:
+[url "git@git.saz.sh:"]
+    insteadOf = g:
