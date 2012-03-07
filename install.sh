@@ -56,4 +56,7 @@ if [ -x "/usr/bin/awesome" ]; then
         git checkout v3.4.10
     fi
 fi
-cd -
+
+if [ -n "${OLDPWD}" ]; then
+    cd -
+fi
