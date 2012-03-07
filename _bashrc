@@ -121,8 +121,16 @@ if [ -f ~/.bash_local ]; then
 fi
 
 # Export some debian stuff
-DEBEMAIL=$DEBEMAIL_local
-DEBFULLNAME=$DEBFULLNAME_local
+if [ -n "${DEBEMAIL_local}" ]; then
+    DEBEMAIL=$DEBEMAIL_local
+else
+    DEBEMAIL="me@saz.sh"
+fi
+if [ -n "${DEBFULLNAME_local}" ]; then
+    DEBFULLNAME=$DEBFULLNAME_local
+else
+    DEBFULLNAME="Steffen Zieger"
+fi
 export DEBEMAIL DEBFULLNAME
 
 # In case, we've changed the directory, switch back to home dir
