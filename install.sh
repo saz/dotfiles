@@ -26,6 +26,10 @@ function linkFile {
 for i in _*
 do
     if [ "$i" == "_config" ]; then
+        if [ ! -d "${HOME}/.config" ]; then
+            mkdir "${HOME}/.config"
+        fi
+
         for j in $i/*
         do
             linkFile "$j"
@@ -44,7 +48,7 @@ git submodule foreach git submodule init
 git submodule foreach git submodule update
 
 # Awesome and Obvious specific stuff
-if [ -e "/usr/bin/awesome" ]; then
+if [ -x "/usr/bin/awesome" ]; then
     awesome_version=`awesome -v|grep awesome|cut -d' ' -f2`
     cd ${HOME}/.config/awesome/obvious
     git checkout $awesome_version > /dev/null 2>&1
