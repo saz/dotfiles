@@ -17,6 +17,7 @@
 	co = checkout
 	ci = commit
 	br = branch
+    sm = submodule
 [url "git@git.kwick.de:"]
     insteadOf = k:
 [url "git@github.com:saz/"]
