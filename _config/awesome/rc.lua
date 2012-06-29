@@ -105,9 +105,8 @@ mysystray = widget({ type = "systray", align = "right" })
 
 -- Obvious clock settings
 obvious.clock.set_editor(editor_cmd)
-obvious.clock.set_shortformat("%a, %d. %b %Y %H:%M:%S")
+obvious.clock.set_shortformat("%a, %d. %b %Y %H:%M")
 obvious.clock.set_longformat("%a, %d. %b %Y %H:%M:%S")
-obvious.clock.set_shorttimer(1)
 
 -- }}}
 
