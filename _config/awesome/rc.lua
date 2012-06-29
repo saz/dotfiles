@@ -8,7 +8,6 @@ require("beautiful")
 require("naughty")
 -- Widgets
 require("obvious.clock")
-require("obvious.battery")
 require("obvious.volume_alsa")
 -- Load Debian menu entries
 require("debian.menu")
@@ -190,7 +189,6 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s], space,
         obvious.clock(), separator,
-        obvious.battery(), separator,
         obvious.volume_alsa().widget, separator,
         s == 1 and mysystray or nil,
         mytasklist[s],
