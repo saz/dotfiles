@@ -114,6 +114,14 @@ PATH="$HOME/bin:/var/lib/gems/1.8/bin:$HOME/opt/git-hooks:$PATH"
 
 export DEBEMAIL DEBFULLNAME
 
+pbuilder-squeeze() {
+    sudo pbuilder --build $@
+}
+
+pbuilder-lenny() {
+    sudo pbuilder --build --basetgz /var/cache/pbuilder/base-lenny.tgz $@
+}
+
 #if [ "$SHLVL" -lt 2 ]; then
 #	echo "Hit Ctrl+C to not raise screen now!"
 #	sleep 1
