@@ -34,7 +34,7 @@ urxvt.urlLauncher: chromium-browser
 
 ! Cursor
 urxvt*cursorBlink: true
-urxvt*cursorUnderline: true
+urxvt*cursorUnderline: false
 urxvt*cursorColor: #93a1a1
 
 ! Solarized Theme colors
