@@ -96,6 +96,7 @@ fi
 # virtualenvwrapper configuration if available
 if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/src
     . /usr/local/bin/virtualenvwrapper.sh
 fi
 
