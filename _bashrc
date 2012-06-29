@@ -5,12 +5,13 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# enable 256 colors in terminal (useful for vim colorschemes)
-if [ -e /usr/share/terminfo/x/xterm+256color ] || [ -e /usr/share/terminfo/x/xterm-256color ]; then
-	export TERM='xterm-256color'
-else
-	export TERM='xterm-color'
-fi
+# Let urxvt set it.
+## enable 256 colors in terminal (useful for vim colorschemes)
+#if [ -e /usr/share/terminfo/x/xterm+256color ] || [ -e /usr/share/terminfo/x/xterm-256color ]; then
+#    export TERM='xterm-256color'
+#else
+#    export TERM='xterm-color'
+#fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
