@@ -1,17 +1,5 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
-
-# Let urxvt set it.
-## enable 256 colors in terminal (useful for vim colorschemes)
-#if [ -e /usr/share/terminfo/x/xterm+256color ] || [ -e /usr/share/terminfo/x/xterm-256color ]; then
-#    export TERM='xterm-256color'
-#else
-#    export TERM='xterm-color'
-#fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -41,65 +29,63 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-parse_git_branch() {
-    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
-    if [ "$branch" ]; then
-        if [ "$branch" = '((no branch))' ]; then
-            tag=$(git describe 2> /dev/null)
-            if [ $? -eq 0 ]; then
-                echo "(no branch, $tag)"
-            fi
-        else
-            echo $branch
-        fi
-    fi
-}
-
-if [ "$color_prompt" = yes ]; then
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(parse_git_branch)\$ '
+# Enable color prompt
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1)\$ '
 else
-	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
+	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1)\$ '
 fi
-
-unset color_prompt force_color_prompt
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
 fi
+
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias df='df -h'
+alias ..='cd ..'
+
+alias dual='disper -d auto -t left -e'
+alias single='disper -d auto -s'
+
+# virtualenv aliases
+# http://blog.doughellmann.com/2010/01/virtualenvwrapper-tips-and-tricks.html
+alias v='workon'
+alias v.deactivate='deactivate'
+alias v.mk='mkvirtualenv --no-site-packages'
+alias v.mk_withsitepackages='mkvirtualenv'
+alias v.rm='rmvirtualenv'
+alias v.switch='workon'
+alias v.add2virtualenv='add2virtualenv'
+alias v.cdsitepackages='cdsitepackages'
+alias v.cd='cdvirtualenv'
+alias v.lssitepackages='lssitepackages'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+#if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#    . /etc/bash_completion
+#fi
 
-# virtualenvwrapper configuration if available
-if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/src
-    . /usr/local/bin/virtualenvwrapper.sh
-fi
+# virtualenvwrapper PROJECT_HOME
+export PROJECT_HOME=$HOME/src
+
+# source virtualenvwrapper if installed
+[ -e /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
 
 # Set to UTF-8 and english locale
 export LANG="en_US.UTF-8"
@@ -108,58 +94,42 @@ export LANG="en_US.UTF-8"
 export LC_COLLATE=C
 
 # Set the right editor
-if [ -x "/usr/bin/vim" ]; then
-    EDITOR="vim"
+vim="$(which vim)"
+if [ -x "${vim}" ]; then
+    export EDITOR="${vim}"
     alias vi=$EDITOR
-    export EDITOR
 fi
 
 # Set CONCURRENCY_LEVEL to number of CPUs
-export CONCURRENCY_LEVEL=`grep -c processor /proc/cpuinfo`
+export CONCURRENCY_LEVEL=$(grep -c processor /proc/cpuinfo)
+
+# Set some Debian variables
+DEBEMAIL="me@saz.sh"
+DEBFULLNAME="Steffen Zieger"
+
+PATH="$HOME/bin:/var/lib/gems/1.8/bin:$HOME/opt/git-hooks:$PATH"
 
 # Source additional information, which applies to the current host only
-if [ -f ~/.bash_local ]; then
-	. ~/.bash_local
-fi
+[ -f $HOME/.bash_local ] &&	. ~/.bash_local
 
-# Export some debian stuff
-if [ -n "${DEBEMAIL_local}" ]; then
-    DEBEMAIL=$DEBEMAIL_local
-else
-    DEBEMAIL="me@saz.sh"
-fi
-if [ -n "${DEBFULLNAME_local}" ]; then
-    DEBFULLNAME=$DEBFULLNAME_local
-else
-    DEBFULLNAME="Steffen Zieger"
-fi
 export DEBEMAIL DEBFULLNAME
-
-# In case, we've changed the directory, switch back to home dir
-cd
-
-# Add rubygems to path
-PATH="/var/lib/gems/1.8/bin:$PATH"
-
-# Add git-hooks to path
-PATH="$PATH:~/opt/git-hooks"
 
 #if [ "$SHLVL" -lt 2 ]; then
 #	echo "Hit Ctrl+C to not raise screen now!"
 #	sleep 1
 #	screen -D -r
 #else
-if [ "$SHLVL" -gt 5 ]; then
-	function ssh() {
-		hname=${1##*@}
-		echo -n -e "\033k$hname\033\\"
-		$(which ssh) $@
-		echo -n -e "\033k`hostname`\033\\"
-	}
-	function telnet() {
-		echo -n -e "\033k$1\033\\"
-		$(which telnet) $@
-		echo -n -e "\033k`hostname`\033\\"
-	}
-	echo -n -e "\033k`hostname`\033\\"
-fi
+#if [ "$SHLVL" -gt 5 ]; then
+#	function ssh() {
+#		hname=${1##*@}
+#		echo -n -e "\033k$hname\033\\"
+#		$(which ssh) $@
+#		echo -n -e "\033k`hostname`\033\\"
+#	}
+#	function telnet() {
+#		echo -n -e "\033k$1\033\\"
+#		$(which telnet) $@
+#		echo -n -e "\033k`hostname`\033\\"
+#	}
+#	echo -n -e "\033k`hostname`\033\\"
+#fi
