@@ -4,6 +4,8 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
+XTerm*termName: xterm-256color
+
 urxvt*termName: rxvt-unicode-256color
 urxvt*internalBorder: 3
 urxvt*externalBorder: 0
