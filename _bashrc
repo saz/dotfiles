@@ -127,12 +127,8 @@ pbuilder-lenny() {
     sudo pbuilder --build --basetgz /var/cache/pbuilder/base-lenny.tgz $@
 }
 
-settitle() {
-    printf "\033k$1\033\\"
-}
-
 ssh() {
-    settitle "$*"
+    [ "${TERM}" == "screen" ] && printf "\033k$1\033\\"
     command ssh "$@"
 }
 
