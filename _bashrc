@@ -130,6 +130,7 @@ pbuilder-lenny() {
 ssh() {
     [ "${TERM}" == "screen" ] && printf "\033k$1\033\\"
     command ssh "$@"
+    [ "${TERM}" == "screen" ] && printf "\033k$HOSTNAME\033\\"
 }
 
 #if [ "$SHLVL" -lt 2 ]; then
