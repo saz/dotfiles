@@ -18,8 +18,6 @@ map <leader>j :RopeGotoDefinition<CR>
 " Rename whatever the cursor is on (including references to it)
 map <leader>r :RopeRename<CR>
 
-
-
 " ================================
 " Load plugins managed by Pathogen
 " ================================
@@ -172,7 +170,6 @@ nnoremap <silent> <F8> :TlistToggle<CR>
 " <leader>V reloads it (remember to save file first)
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-
 " Run django tests
 map <leader>dt :set makeprg=python\ manage.py\ test\|:call MakeGreen()<CR>
 
@@ -192,6 +189,9 @@ map <leader>n :NERDTreeToggle<CR>   " Open NERDTree
 map <leader>g :GundoToggle<CR>  " Open Gundo window
 map <leader>t <Plug>TaskList    " toggle tasklist
 map <leader>v :sp ~/.vimrc<CR><C-W> " open .vimrc
+
+" F3 to toggle numbers
+nnoremap <F3> :NumbersToggle<CR>
 
 """""""""""""""""""""""""""""""""
 " PLUGIN CONFIGURATION "

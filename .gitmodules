@@ -102,3 +102,6 @@
 [submodule "_vim/bundle/puppet"]
 	path = _vim/bundle/puppet
 	url = git://github.com/ajf/puppet-vim.git
+[submodule "_vim/bundle/numbers"]
+	path = _vim/bundle/numbers
+	url = git://github.com/myusuf3/numbers.vim.git
