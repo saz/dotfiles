@@ -6,9 +6,6 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Widgets
-require("obvious.clock")
-require("obvious.volume_alsa")
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -25,7 +22,7 @@ editor_cmd = terminal .. " -e " .. editor
 
 -- Some other variables
 home = os.getenv("HOME")
-filemanager_gui = "nautilus"
+filemanager_gui = "thunar"
 
 -- Default modkey.
 modkey = "Mod4"
@@ -103,10 +100,8 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- Create a systray
 mysystray = widget({ type = "systray", align = "right" })
 
--- Obvious clock settings
-obvious.clock.set_editor(editor_cmd)
-obvious.clock.set_shortformat("%a, %d. %b %Y %H:%M")
-obvious.clock.set_longformat("%a, %d. %b %Y %H:%M:%S")
+-- Create a textclock widget
+mytextclock = awful.widget.textclock({ align = "right" })
 
 -- }}}
 
@@ -187,8 +182,7 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s], space,
-        obvious.clock(), separator,
-        obvious.volume_alsa().widget, separator,
+        mytextclock, separator,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft,
@@ -251,8 +245,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-    -- gnome-do
-    awful.key({ modkey },            "r",     function () awful.util.spawn("gnome-do") end),
+    -- kupfer
+    awful.key({ modkey },            "r",     function () awful.util.spawn("kupfer") end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -263,9 +257,9 @@ globalkeys = awful.util.table.join(
               end),
 
     -- Volume Control
-    awful.key({ }, "XF86AudioRaiseVolume", function () obvious.volume_alsa.raise(0, "Master") end),
-    awful.key({ }, "XF86AudioLowerVolume", function () obvious.volume_alsa.lower(0, "Master") end),
-    awful.key({ }, "XF86AudioMute", function () obvious.volume_alsa.mute(0, "Master") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q sset Master 5+", false) end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -q sset Master 5-", false) end),
+    awful.key({ }, "XF86AudioMute", function () awful.util.spawn("amixer -q sset Master toggle", false) end),
 
     -- Lock Screen
     awful.key({ modkey, "Control" }, "BackSpace", function () awful.util.spawn("xscreensaver-command -lock") end),
@@ -361,10 +355,6 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
-    -- Add a titlebar
-    -- I don't need a titlebar
-    -- awful.titlebar.add(c, { modkey = modkey })
-
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
@@ -376,7 +366,7 @@ client.add_signal("manage", function (c, startup)
     if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
+        awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
@@ -408,10 +398,8 @@ function run_once(prg,arg_string,pname,screen)
 end
 
 run_once("nm-applet")
+run_once("xfsettingsd")
 run_once("xfce4-power-manager")
 run_once("xscreensaver","-no-splash")
-run_once("gnome-do")
--- Is the next line still required?
-run_once("xfsettingsd")
+run_once("kupfer","--no-splash")
 run_once("urxvtd","-q -f -o")
--- awful.util.spawn("gnome-volume-control-applet")
