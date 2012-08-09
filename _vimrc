@@ -61,7 +61,8 @@ set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 " Color settings
 set t_Co=256            " Enable 256 colors
 set background=dark		" dark background in use
-colorscheme solarized	" use colorscheme
+" colorscheme solarized	" use colorscheme
+colorscheme wombat	" use colorscheme
 
 " Line numbers
 set number			    " display line numbers

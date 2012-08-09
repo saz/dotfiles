@@ -1,12 +1,12 @@
 Xft.dpi: 96
-Xft.antialias: false
+Xft.antialias: true
 Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
 XTerm*termName: xterm-256color
 
-urxvt*termName: rxvt-unicode-256color
+urxvt*termName: rxvt-256color
 urxvt*internalBorder: 3
 urxvt*externalBorder: 0
 urxvt*visualBell: false
@@ -20,6 +20,7 @@ urxvt*scrollTtyKeypress: true
 
 ! Font
 urxvt*font: xft:Terminus:pixelsize=14
+! urxvt*font: xft:DejaVu Sans Mono-10
 
 ! Blank pointer
 urxvt*pointerBlank: true
@@ -38,27 +39,50 @@ urxvt*cursorUnderline: false
 urxvt*cursorColor: #93a1a1
 
 ! Solarized Theme colors
-urxvt*foreground: #657b83
-urxvt*background: #002b36
-#urxvt*fading: 40
-urxvt*fadeColor: #002b36
-urxvt*pointerColorBackground: #586e75
-urxvt*pointerColorForeground: #93a1a1
-urxvt*color0: #073642
-urxvt*color1: #dc322f
-urxvt*color2: #859900
-urxvt*color3: #b58900
-urxvt*color4: #268bd2
-urxvt*color5: #d33682
-urxvt*color6: #2aa198
-urxvt*color7: #eee8d5
-urxvt*color8: #002b36
-urxvt*color9: #cb4b16
-urxvt*color10: #586e75
-urxvt*color11: #657b83
-urxvt*color12: #839496
-urxvt*color13: #6c71c4
-urxvt*color14: #93a1a1
-urxvt*color15: #fdf6e3
+!urxvt*foreground: #657b83
+!urxvt*background: #002b36
+!!#urxvt*fading: 40
+!urxvt*fadeColor: #002b36
+!urxvt*pointerColorBackground: #586e75
+!urxvt*pointerColorForeground: #93a1a1
+!urxvt*color0: #073642
+!urxvt*color1: #dc322f
+!urxvt*color2: #859900
+!urxvt*color3: #b58900
+!urxvt*color4: #268bd2
+!urxvt*color5: #d33682
+!urxvt*color6: #2aa198
+!urxvt*color7: #eee8d5
+!urxvt*color8: #002b36
+!urxvt*color9: #cb4b16
+!urxvt*color10: #586e75
+!urxvt*color11: #657b83
+!urxvt*color12: #839496
+!urxvt*color13: #6c71c4
+!urxvt*color14: #93a1a1
+!urxvt*color15: #fdf6e3
+!urxvt*transparent: true
+!urxvt*shading: 30
+!
+
+urxvt*foreground: #f2f2f2
+urxvt*background: #101010
+urxvt*color0: #101010
+urxvt*color1: #f13a21
+urxvt*color2: #93f91d
+urxvt*color3: #ffd00a
+urxvt*color4: #004f9e
+urxvt*color5: #ec0048
+urxvt*color6: #2aa7e7
+urxvt*color7: #f2f2f2
+urxvt*color8: #1d202f
+urxvt*color9: #ff361e
+urxvt*color10: #ffc005
+urxvt*color11: #93ff00
+urxvt*color12: #0071ff
+urxvt*color13: #ef0051
+urxvt*color14: #4bb8fd
+urxvt*color15: #a020f0
 urxvt*transparent: true
-urxvt*shading: 30
+urxvt*shading: 50
+urxvt*fading: 50
