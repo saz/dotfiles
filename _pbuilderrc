@@ -1,0 +1,99 @@
+# Codenames for Debian suites according to their alias. Update these when
+# needed.
+OLD_STABLE_CODENAME="lenny"
+OLD_STABLE_BACKPORTS_SUITE="$OLD_STABLE_CODENAME-backports"
+STABLE_CODENAME="squeeze"
+STABLE_BACKPORTS_SUITE="$STABLE_CODENAME-backports"
+UNSTABLE_CODENAME="sid"
+TESTING_CODENAME="wheezy"
+
+# List of Debian suites.
+DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME $OLD_STABLE_CODENAME "unstable" "testing" "stable" "experimental")
+
+# List of Ubuntu suites. Update these when needed.
+UBUNTU_SUITES=("natty" "maverick" "lucid" "karmic" "jaunty" "intrepid" "hardy" "gutsy")
+
+# Mirrors to use. Update these to your preferred mirror.
+DEBIAN_MIRROR="mirror"
+UBUNTU_MIRROR="de.archive.ubuntu.com"
+
+# Use old-releases mirrors for EOL versions
+if [ "${DIST}" == "gutsy" ]; then
+    UBUNTU_MIRROR="old-releases.ubuntu.com"
+fi
+if [ "${DIST}" == "intrepid" ]; then
+    UBUNTU_MIRROR="old-releases.ubuntu.com"
+fi
+
+# Optionally use the changelog of a package to determine the suite to use if
+# none set.
+if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
+    DIST=$(dpkg-parsechangelog | awk '/^Distribution: / {print $2}')
+    # Use the unstable suite for Debian experimental packages.
+    if [ "${DIST}" == "experimental" ]; then
+        DIST="unstable"
+    fi
+fi
+
+# Optionally set a default distribution if none is used. Note that you can set
+# your own default (i.e. ${DIST:="unstable"}).
+: ${DIST:="$(lsb_release --short --codename)"}
+
+# Optionally set the architecture to the host architecture if none set. Note
+# that you can set your own default (i.e. ${ARCH:="i386"}).
+: ${ARCH:="$(dpkg --print-architecture)"}
+
+case $DIST in
+	$STABLE_BACKPORTS_SUITE)
+		DIST="${STABLE_CODENAME}"
+		;;
+esac
+
+NAME="${DIST}"
+if [ -n "${ARCH}" ]; then
+    NAME="${NAME}-${ARCH}"
+    DEBOOTSTRAPOPTS=("--arch" "${ARCH}" "${DEBOOTSTRAPOPTS[@]}")
+fi
+
+BASETGZ="/var/cache/pbuilder/${NAME}-base.tgz"
+DISTRIBUTION="${DIST}"
+BUILDRESULT=.
+HOOKDIR="/etc/pbuilder/hooks"
+DEBBUILDOPTS="-sa -j${CONCURRENCY_LEVEL}"
+APTCACHE="/var/cache/pbuilder/${NAME}/aptcache/"
+
+if [[ ${DEBIAN_SUITES[@]} =~ $DIST ]]; then
+    # Debian configuration
+    MIRRORSITE="http://${DEBIAN_MIRROR}/debian/"
+    COMPONENTS="main contrib non-free"
+    if $(echo "${STABLE_CODENAME} stable" | grep -q $DIST); then
+        EXTRAPACKAGES="${EXTRAPACKAGES} wget"
+		OTHERMIRROR="${OTHERMIRROR} | deb http://${DEBIAN_MIRROR}/debian-kwick/ ${STABLE_CODENAME} ${COMPONENTS} | deb http://${DEBIAN_MIRROR}/dotdeb/ ${STABLE_CODENAME} all"
+        #OTHERMIRROR="$OTHERMIRROR | deb http://backports.debian.org/debian-backports $STABLE_BACKPORTS_SUITE $COMPONENTS"
+    elif $(echo "${OLD_STABLE_CODENAME} stable" | grep -q $DIST); then
+        EXTRAPACKAGES="${EXTRAPACKAGES} wget"
+        #OTHERMIRROR="$OTHERMIRROR | deb http://backports.debian.org/debian-backports $OLD_STABLE_BACKPORTS_SUITE $COMPONENTS"
+    elif $(echo "unstable" | grep -q $DIST); then
+		EXTRAPACKAGES="${EXTRAPACKAGES} wget"
+        DIST="${UNSTABLE_CODENAME}"
+		OTHERMIRROR="${OTHERMIRROR} | deb http://${DEBIAN_MIRROR}/debian-kwick/ experimental main"
+    fi
+elif [[ ${UBUNTU_SUITES[@]} =~ $DIST ]]; then
+    # Ubuntu configuration
+    MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
+    COMPONENTS="main restricted universe multiverse"
+    v=0
+    n=0
+    for i in ${DEBOOTSTRAPOPTS[@]}; do
+        if [ $v -ne 0 ]; then
+            DEBOOTSTRAPOPTS[$n]="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
+        fi
+        if [ $i == "--keyring" ]; then
+            v=1;
+        fi
+        n=$((n+1))
+    done
+else
+    echo "Unknown distribution: $DIST"
+    exit 1
+fi
