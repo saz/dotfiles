@@ -1,6 +1,32 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+PATH="$HOME/bin:/usr/local/bin:/usr/local/share/python:/var/lib/gems/1.8/bin:$HOME/opt/git-hooks:$PATH"
+
+# We may need to have different paths on different platforms
+OS=$(uname)
+
+# Paths for different platforms
+case $OS in
+    Darwin)
+        VIRTUALENVWRAPPER="/usr/local/share/python/virtualenvwrapper.sh"
+        BASH_COMPLETION=$(brew --prefix)/etc/bash_completion
+        LESSPIPE="/usr/local/bin/lesspipe.sh"
+        CPU_COUNT=$(sysctl hw.ncpu | awk '{print $2}')
+        ;;
+    *)
+        VIRTUALENVWRAPPER="/usr/local/bin/virtualenvwrapper.sh"
+        BASH_COMPLETION="/etc/bash_completion"
+        LESSPIPE="/usr/bin/lesspipe"
+        CPU_COUNT=$(grep -c processor /proc/cpuinfo)
+        ;;
+esac
+
+# enable programmable completion features
+if [ -f $BASH_COMPLETION ] && ! shopt -oq posix; then
+    . $BASH_COMPLETION
+fi
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace
@@ -20,9 +46,6 @@ PROMPT_COMMAND="history -a"
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -79,21 +102,18 @@ alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x $LESSPIPE ] && eval "$(SHELL=/bin/sh $LESSPIPE)"
 
 # virtualenvwrapper PROJECT_HOME
 export PROJECT_HOME=$HOME/src
 
-# source virtualenvwrapper if installed
-[ -e /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
+# Source virtualenvwrapper, if available
+[ -e $VIRTUALENVWRAPPER ] && . $VIRTUALENVWRAPPER
 
 # Set to UTF-8 and english locale
 export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # Set to 'C' to make ls sort dotfiles
 export LC_COLLATE=C
@@ -106,13 +126,11 @@ if [ -x "${vim}" ]; then
 fi
 
 # Set CONCURRENCY_LEVEL to number of CPUs
-export CONCURRENCY_LEVEL=$(grep -c processor /proc/cpuinfo)
+export CONCURRENCY_LEVEL=$CPU_COUNT
 
 # Set some Debian variables
 DEBEMAIL="me@saz.sh"
 DEBFULLNAME="Steffen Zieger"
-
-PATH="$HOME/bin:/var/lib/gems/1.8/bin:$HOME/opt/git-hooks:$PATH"
 
 # Source additional information, which applies to the current host only
 [ -f $HOME/.bash_local ] &&	. ~/.bash_local
