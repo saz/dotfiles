@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-PATH="$HOME/bin:/usr/local/bin:/usr/local/share/python:/var/lib/gems/1.8/bin:$HOME/opt/git-hooks:$PATH"
+PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/python:/var/lib/gems/1.8/bin:$HOME/opt/git-hooks:$PATH"
 
 # We may need to have different paths on different platforms
 OS=$(uname)
@@ -13,12 +13,14 @@ case $OS in
         BASH_COMPLETION=$(brew --prefix)/etc/bash_completion
         LESSPIPE="/usr/local/bin/lesspipe.sh"
         CPU_COUNT=$(sysctl hw.ncpu | awk '{print $2}')
+        LS_ALIAS_FLAGS=''
         ;;
     *)
         VIRTUALENVWRAPPER="/usr/local/bin/virtualenvwrapper.sh"
         BASH_COMPLETION="/etc/bash_completion"
         LESSPIPE="/usr/bin/lesspipe"
         CPU_COUNT=$(grep -c processor /proc/cpuinfo)
+        LS_ALIAS_FLAGS='--color=auto'
         ;;
 esac
 
@@ -72,7 +74,11 @@ if [ -x /usr/bin/dircolors ]; then
     test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-alias ls='ls --color=auto'
+if [ "${LS_ALIAS_FLAGS}" != '' ]; then
+    alias ls="ls ${LS_ALIAS_FLAGS}"
+else
+    alias ls='ls'
+fi
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 alias ll='ls -alF'
