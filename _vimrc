@@ -1,5 +1,5 @@
 " Load pathogen from bundle directory
-runtime bundle/pathogen/autoload/pathogen.vim
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 "  =========
 "  Shortcuts

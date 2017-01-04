@@ -101,3 +101,6 @@
 [submodule "_vim/bundle/wombat"]
 	path = _vim/bundle/wombat
 	url = git://github.com/raphael-proust/wombat.git
+[submodule "_vim/bundle/vim-pathogen"]
+	path = _vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
