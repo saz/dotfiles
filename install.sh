@@ -10,7 +10,7 @@ function linkFile {
     if [ -e "${backup}" ]; then
         if [ -f "${backup}" ] || [ -h "${backup}" ]; then
             rm "${backup}"
-        elif [ -d "${backup}"]; then
+        elif [ -d "${backup}" ]; then
             rm -r "${backup}"
         fi
     fi
