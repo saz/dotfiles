@@ -62,10 +62,6 @@
 	path = _vim/bundle/sudo
 	url = git://github.com/vim-scripts/sudo.vim.git
     ignore = dirty
-[submodule "_vim/bundle/vim-php"]
-	path = _vim/bundle/vim-php
-	url = git://github.com/madflow/vim-php.git
-    ignore = dirty
 [submodule "_vim/bundle/vim-markdown"]
 	path = _vim/bundle/vim-markdown
 	url = git://github.com/plasticboy/vim-markdown.git
