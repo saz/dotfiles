@@ -69,9 +69,6 @@
 [submodule "_vim/bundle/vim-markdown"]
 	path = _vim/bundle/vim-markdown
 	url = git://github.com/plasticboy/vim-markdown.git
-[submodule "_config/awesome/obvious"]
-	path = _config/awesome/obvious
-	url = git://git.mercenariesguild.net/obvious.git
 [submodule "_config/awesome/themes"]
 	path = _config/awesome/themes
 	url = git://github.com/mikar/awesome-themes.git
