@@ -67,7 +67,7 @@
 	url = git://github.com/plasticboy/vim-markdown.git
 [submodule "_config/awesome/themes"]
 	path = _config/awesome/themes
-	url = git://github.com/mikar/awesome-themes.git
+	url = git://github.com/serialoverflow/awesome-themes.git
 [submodule "_config/awesome/freedesktop-repo"]
 	path = _config/awesome/freedesktop-repo
 	url = git://github.com/terceiro/awesome-freedesktop.git
