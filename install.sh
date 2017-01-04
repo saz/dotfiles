@@ -57,6 +57,9 @@ git submodule foreach git submodule update
 #    fi
 #fi
 
+# Check if exuberant ctags is installed, else show a hint
+ctags-exuberant --version &> /dev/null || echo "Please install exuberant-ctags as it is required by vim"
+
 if [ -n "${OLDPWD}" ]; then
     cd -
 fi
